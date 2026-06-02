@@ -206,6 +206,62 @@ unexpectedly if not monitored.
 
 ---
 
+## GOTCHA-008 — Outside Photo AI Unreliability
+**Problem:** AI photo verification is unreliable for
+outdoor photos. Variable lighting, changing backgrounds
+(weather, shadows, time of day), and lack of a
+consistent reference baseline make outdoor reference
+comparison and clutter detection both fail frequently.
+
+**Fix:** Never use AI_RELIABLE or AI_WITH_OVERRIDES
+for outdoor chore shots. Two options:
+1. Set outdoor shots to PARENT_QUEUE_ONLY
+2. Reframe the shot as an indoor storage location
+   (equipment bin, garage wall mount) where a clean
+   reference photo exists and lighting is consistent.
+   This is the preferred approach for sporting goods —
+   verify the equipment is put away in its storage
+   location rather than trying to verify the yard
+   is clear.
+
+**Affected chore:** Kid 4 sporting goods outdoor shot.
+Configure as storage location photo with
+PARENT_QUEUE_ONLY or AI_WITH_OVERRIDES depending
+on how consistent the storage location lighting is.
+
+---
+
+## GOTCHA-009 — AI Prompt Specificity for Category Chores
+**Problem:** House rotation chores are category-specific
+(trash ONLY, clothes ONLY, toys ONLY). Without a
+precise AI prompt, GPT-4o may fail a room because
+it sees clothes on the floor when the kid's chore
+is only trash pickup — creating false failures and
+frustrated kids.
+
+**Fix:** AI prompts for category chores must explicitly
+state what to ignore. Example for Kid 1 trash chore:
+
+"This chore is PICK UP TRASH ONLY. The kid is
+responsible for removing trash (wrappers, cups,
+paper scraps, food containers) from this room.
+Ignore any clothes, shoes, toys, or sporting goods
+— those are other kids' responsibilities. Return
+PASS if no visible trash is present on floors or
+surfaces. Return FAIL with specific location of
+trash found if trash is visible."
+
+Each category chore needs its own precisely scoped
+AI prompt. Parent configures this per chore in the
+dashboard during setup. Getting these prompts right
+is critical to reducing false failures and parent
+override fatigue.
+
+**Files affected:**
+- Parent dashboard chore setup UI
+- required_shots.ai_prompt field
+- Spring Boot AI verification service
+
 ## Template for new gotchas:
 
 ## GOTCHA-XXX — Short Title

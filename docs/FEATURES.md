@@ -61,14 +61,66 @@ not enforced by app.
 - Rotation: every 12 months, manually triggered
   by parent
 
-**Daily House Rotation (1 kid assigned):**
-- Pick up trash in all rooms (multi-shot photo)
-- Pick up laundry (multi-shot photo)
-- Put away shoes and school supplies (photo)
-- Put away sporting goods (photo)
-- Put away toys and games (photo)
-- Rotation: every 12 months, manually triggered
-  by parent
+**Daily House Rotation — Summer/Non-School (1 kid assigned):**
+
+Each kid is assigned one pickup category for the
+summer. They are responsible for that category
+across ALL common rooms (Family Room, Living Room,
+Storm Room, Halls).
+
+Assignments (rotate annually, manually triggered):
+- Kid 1 — pick up trash
+- Kid 2 — pick up clothes
+- Kid 3 — pick up toys
+- Kid 4 — pick up sporting goods
+- Kid 5 — pick up shoes and school supplies
+
+Required shots per assignment:
+- 4 indoor room shots (Family/Living/Storm/Halls)
+- Kid 4 adds 1 outdoor storage location shot
+
+AI verification tier per assignment:
+- Trash → AI_RELIABLE (clutter detection)
+- Clothes → AI_RELIABLE (clutter detection)
+- Toys → AI_WITH_OVERRIDES (clutter detection)
+- Sporting goods indoor → AI_WITH_OVERRIDES
+- Sporting goods outdoor storage → PARENT_QUEUE_ONLY
+- Shoes/supplies → AI_WITH_OVERRIDES
+
+Rotation: every 12 months, manually triggered
+by parent in dashboard.
+
+---
+
+**AI Verification Tiers (applies to all chores):**
+
+Each chore has a verification_tier field configured
+in the parent dashboard:
+
+**AI_RELIABLE:**
+Chore routes through GPT-4o. AI verdict is trusted.
+Kid can dispute if AI fails → parent notified.
+Used for: trash, clothes, clean room, bathroom
+surfaces, vacuumed floors, laundry put away.
+
+**AI_WITH_OVERRIDES:**
+Chore routes through GPT-4o. AI verdict is a first
+pass but parent override rate expected to be higher.
+Kid can dispute if AI fails → parent notified.
+Used for: toys, shoes/supplies, sporting goods
+inside, leave no trace checks.
+
+**PARENT_QUEUE_ONLY:**
+GPT-4o call skipped entirely. Submission goes
+directly to AWAITING_REVIEW status. Both parents
+notified immediately for manual review.
+Used for: sporting goods outside, any chore
+parent flags as too ambiguous for AI.
+
+**CHECKBOX / HONOR_SYSTEM:**
+No photo, no AI. Kid taps checkbox. Done.
+Used for: make bed, brush teeth, personal hygiene,
+laundry wash step.
 
 **Laundry Day (1 assigned day per kid per week):**
 - Wash laundry (checkbox)

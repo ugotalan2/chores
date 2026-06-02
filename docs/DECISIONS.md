@@ -488,3 +488,96 @@ long-lived device token stored in Android Keystore.
 Kids never interact with auth after initial setup.
 **Date:** Project design phase
 **Status:** Final
+
+### AD-014 — Tiered AI Verification by Chore Type
+**Decision:** Not all chores use AI verification.
+Verification method is assigned per chore based on
+how reliably AI can assess that specific task.
+**Three tiers:**
+- ✅ AI verification — clear visual pass/fail, AI
+  handles reliably, reduces parent review load
+- ⚠️ AI with expected overrides — AI attempts
+  verification but parent override rate will be
+  higher, still worth running to catch obvious fails
+- ❌ Parent queue directly — AI unreliable for this
+  chore type, skip AI and route straight to parent
+  review queue
+
+**Reasoning by chore type:**
+
+| Chore | Tier | Reason |
+|---|---|---|
+| Clean room | ✅ AI reference comparison | Clear visual baseline |
+| Vacuum / floors | ✅ AI reference comparison | Clear visual baseline |
+| Bathroom surfaces | ✅ AI reference comparison | Clear visual standard |
+| Laundry put away (closet) | ✅ AI reference comparison | Organized vs messy is clear |
+| Pick up trash | ✅ AI clutter detection | Trash is visually distinct |
+| Pick up clothes | ✅ AI clutter detection | Clothes on floor are obvious |
+| Pick up toys | ⚠️ AI clutter detection | Broad category, edge cases |
+| Pick up shoes/supplies | ⚠️ AI clutter detection | Small items, moderate reliability |
+| Sporting goods (inside) | ⚠️ AI clutter detection | Reasonable but edge cases |
+| Sporting goods (outside) | ❌ Parent queue directly | Outside lighting/background too variable for reliable AI |
+| Checkbox chores | N/A honor system | Teeth, bed, hygiene — no photo |
+
+**Outside photo exception:**
+Rather than photographing the whole yard for
+sporting goods, Kid 4 photographs the specific
+storage location (equipment bin, garage wall mount,
+etc.). Reference photo of full organized storage vs
+empty is a reliable AI check. Shifts verification
+from "is yard clean" to "is equipment put away."
+
+**Implementation:**
+Each chore in the parent dashboard has a
+verification_tier field:
+- AI_RELIABLE
+- AI_WITH_OVERRIDES
+- PARENT_QUEUE_ONLY
+
+PARENT_QUEUE_ONLY chores skip the GPT-4o call
+entirely and go straight to AWAITING_REVIEW status,
+pushing notification to parents immediately.
+
+**Date:** Project design phase
+**Status:** Final
+
+---
+
+### AD-015 — Summer House Rotation Chore Structure
+**Decision:** Summer house rotation assigns one
+specific pickup category per kid across all common
+rooms (Family/Living/Storm/Halls). Each kid owns
+their category for the full summer break and rotates
+annually with other assignments.
+
+**Summer assignments:**
+- Kid 1 — pick up trash
+- Kid 2 — pick up clothes
+- Kid 3 — pick up toys
+- Kid 4 — pick up sporting goods (inside + outside
+  storage location)
+- Kid 5 — pick up shoes and school supplies
+
+**Why category-based vs room-based:**
+Room-based rotation (Kid 1 cleans the whole family
+room) requires a kid to pick up everything which
+creates overlap and arguments. Category-based means
+each kid has one clear responsibility across all
+rooms — no ambiguity about whose job it is.
+
+**Photo requirements per kid:**
+Each category requires 4 shots minimum (one per
+room: Family/Living/Storm/Halls) plus Kid 4 adds
+the outdoor storage location shot.
+
+**Verification tiers assigned:**
+- Kid 1 trash → AI_RELIABLE
+- Kid 2 clothes → AI_RELIABLE
+- Kid 3 toys → AI_WITH_OVERRIDES
+- Kid 4 sporting goods inside → AI_WITH_OVERRIDES
+- Kid 4 sporting goods outside → PARENT_QUEUE_ONLY
+  (storage location shot only)
+- Kid 5 shoes/supplies → AI_WITH_OVERRIDES
+
+**Date:** Project design phase
+**Status:** Final
