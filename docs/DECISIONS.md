@@ -430,3 +430,61 @@ after core system is proven and stable.
 | Saturday bathroom tasks | Weekly | Automatic, app tracks |
 | Laundry day assignment | Fixed (set once) | Manual — parent dashboard |
 | Summer dinner variation | Per break period | Manual — parent dashboard |
+
+### AD-011 — PostgreSQL over Firestore
+**Decision:** Use PostgreSQL (hosted on Railway) instead
+of Firebase Firestore as the primary database.
+**Alternatives considered:** Firebase Firestore,
+MongoDB Atlas, Supabase
+**Reason:** ChoreHouse data is fundamentally relational.
+Kids have assignments, assignments reference chores,
+chores have required shots, daily instances reference
+assignments and chores. SQL handles this naturally with
+foreign keys, joins, and constraints. Firestore would
+require data duplication or multiple round trips to
+simulate joins. Complex queries like streak calculation,
+consistency reporting, and cross-kid status views are
+straightforward SQL but painful in Firestore.
+PostgreSQL is also more transferable as a skill and
+matches what most enterprise backend teams use.
+**Date:** Project design phase
+**Status:** Final
+
+---
+
+### AD-012 — Railway over Supabase for Database
+**Decision:** Host PostgreSQL and Spring Boot API on
+Railway rather than Supabase.
+**Alternatives considered:** Supabase (PostgreSQL),
+Neon, PlanetScale
+**Reason:** Existing Supabase account already has 2
+active projects which is the free tier maximum. Rather
+than managing a separate database hosting account,
+Railway hosts both the Spring Boot API and PostgreSQL
+database in one free tier under one dashboard. Simpler
+to manage, no inactivity pausing issues (Supabase pauses
+free projects after 7 days of inactivity which would
+disrupt development), and one less account to maintain.
+**Date:** Project design phase
+**Status:** Final
+
+---
+
+### AD-013 — Clerk for OAuth Authentication
+**Decision:** Use Clerk for parent OAuth authentication
+on the PWA dashboard.
+**Alternatives considered:** Firebase Auth, Supabase
+Auth, Auth0, rolling our own
+**Reason:** Clerk provides OAuth (Google sign-in) out
+of the box with a generous free tier. Angular and
+Spring Boot SDKs are available. Built-in invitation
+flow handles adding a second parent cleanly. JWT
+validation integrates with Spring Security via JWKS
+endpoint. Eliminates building and maintaining auth
+infrastructure entirely.
+**Parent PWA:** Full Clerk OAuth login
+**Chore device:** One-time Clerk setup, then
+long-lived device token stored in Android Keystore.
+Kids never interact with auth after initial setup.
+**Date:** Project design phase
+**Status:** Final

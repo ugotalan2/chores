@@ -44,26 +44,33 @@ ChoreHouse consists of four main components:
 
 ---
 
-## Database — Firebase Firestore
+## Database — PostgreSQL on Railway
 
-**Why Firebase over PostgreSQL:**
-- Free tier covers this use case comfortably
-- Firestore document model fits chore/schedule data well
-- Built-in real-time updates (parent dashboard live refresh)
-- Firebase Auth handles both parent and kid sessions
-- Firebase Storage handles reference + submission photos
-- Firebase Cloud Messaging handles push notifications
-- One platform for auth, db, storage, and notifications
+**Why Railway over Supabase:**
+Existing Supabase account is at the 2-project free
+tier limit. Railway hosts both the Spring Boot API
+and PostgreSQL database in one free tier under one
+dashboard — simpler, no inactivity pausing, one
+account to manage.
 
-**Collections overview (detail in DATA_MODEL.md):**
-- `users` — parent and kid profiles
-- `chores` — chore definitions with required shots
-- `choreAssignments` — which kid has which chore/rotation
-- `choreBlocks` — daily/breakfast/lunch/dinner block config
-- `submissions` — photo submissions and AI verdicts
-- `rotations` — rotation schedules and current state
-- `streaks` — per kid streak tracking
-- `notifications` — push notification log
+**Why PostgreSQL over Firestore:**
+ChoreHouse data is fundamentally relational. Kids,
+assignments, chores, required shots, daily instances,
+and submissions all have clear foreign key relationships.
+SQL joins, aggregations, and constraints handle this
+naturally. Complex queries (streaks, consistency
+reports, cross-kid status views) are straightforward
+SQL but painful in a document database.
+
+**Schema managed by Flyway:**
+All changes via versioned migration files in:
+backend/src/main/resources/db/migration/
+Never alter schema manually.
+
+**Column type rules (see GOTCHAS-001):**
+- Timestamps → TIMESTAMP WITH TIME ZONE
+- Date-only fields → DATE (no timezone component)
+- File data → never stored in DB, URL strings only
 
 ---
 
