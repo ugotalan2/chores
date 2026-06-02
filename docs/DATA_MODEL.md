@@ -1,7 +1,7 @@
 # DATA_MODEL.md
 
 ## Overview
-ChoreHouse uses PostgreSQL hosted on Railway.
+Chores uses PostgreSQL hosted on Railway.
 All schema changes are managed through Flyway
 versioned migration files. Never alter the database
 manually — always through a new migration file.

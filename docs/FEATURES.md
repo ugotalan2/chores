@@ -5,7 +5,7 @@
 ### App Lockdown
 - Android kiosk mode via Device Owner / custom Capacitor
   plugin written in Java
-- Device locked to ChoreHouse app only
+- Device locked to Chores app only
 - No browser, YouTube, or other app access
 - Google Family Link as secondary parental control layer
 - Google Find My Device remains active at system level
@@ -307,7 +307,7 @@ Reject (v2) → back to kid with note
 - Device Owner policy management
 - Remote wipe / lock capability
 - Call and text lockdown to approved contacts only
-- WiFi data restricted to ChoreHouse app only
+- WiFi data restricted to Chores app only
 - Approved contact list managed from parent dashboard
 - Replaces Alexa calling for kids
 

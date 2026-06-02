@@ -1,7 +1,7 @@
 # CICD.md
 
 ## Overview
-ChoreHouse uses GitHub Actions for CI/CD, Docker for
+Chores uses GitHub Actions for CI/CD, Docker for
 containerization, and Railway for hosting. The pipeline
 is designed to mimic enterprise workflow patterns
 (feature branches, automated testing, database migrations)
@@ -15,11 +15,9 @@ only the tooling syntax differs.
 ---
 
 ## Java Version
-**Use Java 21 LTS**
+**Use Java 25 LTS**
 - Current enterprise standard
 - Fully supported by Spring Boot 3.x
-- Free Oracle JDK updates until September 2026
-- Plan migration to Java 25 LTS before Sept 2026
 - Download from: https://adoptium.net (Temurin
   distribution — always free, no license concerns)
 
@@ -185,7 +183,7 @@ Commands:
 ```yaml
 # .github/workflows/ci.yml
 
-name: ChoreHouse CI
+name: Chores CI
 
 on:
   push:
@@ -202,8 +200,8 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: chorehouse_test
-          POSTGRES_USER: chorehouse
+          POSTGRES_DB: chores_test
+          POSTGRES_USER: chores
           POSTGRES_PASSWORD: testpassword
         options: >-
           --health-cmd pg_isready
@@ -214,14 +212,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '25'
           distribution: 'temurin'
       - name: Run tests
         run: ./mvnw verify
         working-directory: backend
         env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/chorehouse_test
-          SPRING_DATASOURCE_USERNAME: chorehouse
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/chores_test
+          SPRING_DATASOURCE_USERNAME: chores
           SPRING_DATASOURCE_PASSWORD: testpassword
 
   frontend-test:
@@ -281,7 +279,7 @@ jobs:
         uses: bervProject/railway-deploy@main
         with:
           railway_token: ${{ secrets.RAILWAY_TOKEN }}
-          service: chorehouse-api
+          service: chores-api
 ```
 
 ---
@@ -297,8 +295,8 @@ services:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/chorehouse
-      SPRING_DATASOURCE_USERNAME: chorehouse
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/chores
+      SPRING_DATASOURCE_USERNAME: chores
       SPRING_DATASOURCE_PASSWORD: localpassword
       TZ: America/Chicago
     depends_on:
@@ -308,8 +306,8 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_DB: chorehouse
-      POSTGRES_USER: chorehouse
+      POSTGRES_DB: chores
+      POSTGRES_USER: chores
       POSTGRES_PASSWORD: localpassword
       TZ: America/Chicago
     ports:
@@ -317,7 +315,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chorehouse"]
+      test: ["CMD-SHELL", "pg_isready -U chores"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -335,13 +333,13 @@ volumes:
 
 ### backend/Dockerfile
 ```dockerfile
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM eclipse-temurin:25-jdk-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN ./mvnw package -DskipTests
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 ENV TZ=America/Chicago
@@ -358,7 +356,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-COPY --from=builder /app/dist/chorehouse /usr/share/nginx/html
+COPY --from=builder /app/dist/chores /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 ```
@@ -468,7 +466,7 @@ public SecurityFilterChain filterChain(
 ## Repository Structure
 
 ```
-chorehouse/
+chores/
   ├── .github/
   │   └── workflows/
   │       └── ci.yml
@@ -477,7 +475,7 @@ chorehouse/
   ├── backend/
   │   ├── src/
   │   │   ├── main/
-  │   │   │   ├── java/com/chorehouse/
+  │   │   │   ├── java/com/chores/
   │   │   │   └── resources/
   │   │   │       ├── db/migration/
   │   │   │       └── application.properties

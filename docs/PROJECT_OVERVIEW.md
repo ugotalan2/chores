@@ -1,7 +1,7 @@
 # PROJECT_OVERVIEW.md
 
 ## Project Name
-**ChoreHouse** (placeholder — rename as desired)
+Chores
 
 ## Vision
 A family chore management app that uses AI-powered photo 
@@ -70,7 +70,7 @@ completion status and flags to parents. Physical device
 collection (locked office door) remains parent-managed.
 
 ## Long-term Vision
-ChoreHouse evolves into a family home hub:
+Chores evolves into a family home hub:
 - Wall-mounted tablet as always-on family display
 - Calendar, shopping list, family messages
 - Grounding tracker with exact end dates

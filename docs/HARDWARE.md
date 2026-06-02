@@ -22,7 +22,7 @@ photos, then return it to the charging dock.
 
 **Kiosk Lockdown:**
 - Android Device Owner mode
-- Locked to ChoreHouse app only
+- Locked to Chores app only
 - No browser, YouTube, or app installs accessible
 - Google Family Link as secondary control layer
 - Google Find My Device active at system level
@@ -75,7 +75,7 @@ calling for kids.
 **Additional Configuration:**
 - Headwind MDM installed (self-hosted, free)
 - Call and text enabled to approved contacts only
-- WiFi data restricted to ChoreHouse app only
+- WiFi data restricted to Chores app only
 - No browsers, social, or general internet access
 - Approved contact list managed from parent dashboard
 - Essentially a modern smart landline for the house

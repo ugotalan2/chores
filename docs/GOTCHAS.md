@@ -26,12 +26,12 @@ Kansas City, Missouri
 1. Set JVM default timezone at Spring Boot startup:
 ```java
 @SpringBootApplication
-public class ChoreHouseApplication {
+public class ChoresApplication {
   public static void main(String[] args) {
     TimeZone.setDefault(
       TimeZone.getTimeZone("America/Chicago"));
     SpringApplication.run(
-      ChoreHouseApplication.class, args);
+      ChoresApplication.class, args);
   }
 }
 ```
@@ -70,7 +70,7 @@ TZ=America/Chicago
 ```
 
 **Files that need timezone attention:**
-- ChoreHouseApplication.java
+- ChoresApplication.java
 - application.properties
 - All JPA entity classes with date/timestamp fields
 - All Flyway migration files (use TIMESTAMP WITH
@@ -126,9 +126,6 @@ Store updated token in users table fcmToken field.
 ---
 
 ## GOTCHA-004 — Java Version Licensing
-**Problem:** Oracle JDK 21 free updates end September
-2026. Updates after that date require a paid Oracle
-subscription.
 
 **Fix:** Use Eclipse Temurin (OpenJDK) distribution
 instead of Oracle JDK — always free, no licensing
@@ -136,12 +133,9 @@ issues. Download from https://adoptium.net
 
 In Dockerfile always use Temurin base image:
 ```dockerfile
-FROM eclipse-temurin:21-jdk-alpine AS builder
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jdk-alpine AS builder
+FROM eclipse-temurin:25-jre-alpine
 ```
-
-Plan migration from Java 21 to Java 25 LTS before
-September 2026.
 
 ---
 

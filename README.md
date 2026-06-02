@@ -1,4 +1,4 @@
-# ChoreHouse
+# Chores
 
 A family chore management app that uses AI-powered photo
 verification to confirm chores are actually completed —
@@ -28,7 +28,7 @@ PWA dashboard to review, approve, and manage everything.
 
 | Layer | Technology |
 |---|---|
-| Backend | Java 21, Spring Boot 3.x |
+| Backend | Java 25, Spring Boot 3.x |
 | Database | PostgreSQL (Railway) |
 | Migrations | Flyway |
 | Auth | Clerk (OAuth) |
@@ -67,7 +67,7 @@ AI session — paste relevant docs for full context.**
 ## Local Development
 
 ### Prerequisites
-- Java 21 (Eclipse Temurin) — https://adoptium.net
+- Java 25 (Eclipse Temurin) — https://adoptium.net
 - Docker Desktop
 - IntelliJ IDEA Community Edition
 - Node.js 20+
@@ -75,7 +75,7 @@ AI session — paste relevant docs for full context.**
 ### Run locally
 ```bash
 # Clone repo
-git clone https://github.com/yourusername/chorehouse
+git clone https://github.com/ugotalan2/chores
 
 # Start database and API
 docker-compose up

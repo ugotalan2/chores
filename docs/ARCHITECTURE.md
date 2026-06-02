@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 ## System Overview
-ChoreHouse consists of four main components:
+Chores consists of four main components:
 1. **Spring Boot Backend** — Java REST API, business logic,
    AI orchestration
 2. **Firebase Platform** — database, authentication, push
@@ -54,7 +54,7 @@ dashboard — simpler, no inactivity pausing, one
 account to manage.
 
 **Why PostgreSQL over Firestore:**
-ChoreHouse data is fundamentally relational. Kids,
+Chores data is fundamentally relational. Kids,
 assignments, chores, required shots, daily instances,
 and submissions all have clear foreign key relationships.
 SQL joins, aggregations, and constraints handle this
@@ -97,7 +97,7 @@ Never alter schema manually.
 **Android Kiosk Lockdown:**
 - Android Device Owner mode via custom Capacitor plugin
   written in Java
-- Locks device to ChoreHouse app only
+- Locks device to Chores app only
 - No browser, no YouTube, no app installs
 - Google Family Link for additional parental controls
 - Find My Device remains active at system level

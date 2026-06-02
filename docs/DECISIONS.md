@@ -2,7 +2,7 @@
 
 ## Purpose
 A running log of key architectural, product, and hardware
-decisions made during the design of ChoreHouse, including
+decisions made during the design of Chores, including
 the reasoning behind each. Update this file whenever a
 significant decision is made or changed. This file exists
 so that months later we can remember WHY we did something,
@@ -212,7 +212,7 @@ matter who helped).
 ---
 
 ### PD-003 — App Does Not Enforce Screen Time
-**Decision:** ChoreHouse tracks chore completion and
+**Decision:** Chores tracks chore completion and
 flags status but does NOT lock kids' personal devices
 or enforce screen time rules.
 **Reason:** Kids' personal devices (phones, iPads,
@@ -436,7 +436,7 @@ after core system is proven and stable.
 of Firebase Firestore as the primary database.
 **Alternatives considered:** Firebase Firestore,
 MongoDB Atlas, Supabase
-**Reason:** ChoreHouse data is fundamentally relational.
+**Reason:** Chores data is fundamentally relational.
 Kids have assignments, assignments reference chores,
 chores have required shots, daily instances reference
 assignments and chores. SQL handles this naturally with
