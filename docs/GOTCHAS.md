@@ -257,10 +257,43 @@ dashboard during setup. Getting these prompts right
 is critical to reducing false failures and parent
 override fatigue.
 
+## GOTCHA-010 — Spotless Incompatibility with Java 25
+**Problem:** Spotless maven plugin versions below 2.46.0
+are incompatible with Java 25. Throws NoSuchMethodError
+on DeferredDiagnosticHandler.getDiagnostics() because
+Java 25 changed the return type from Queue to List.
+
+**Fix:** Use spotless-maven-plugin 2.46.0 or higher
+with googleJavaFormat 1.28.0 or higher in pom.xml.
+
+**Files affected:** pom.xml
+
 **Files affected:**
 - Parent dashboard chore setup UI
 - required_shots.ai_prompt field
 - Spring Boot AI verification service
+
+## GOTCHA-012 — Spring Boot 4 Flyway Starter Required
+**Problem:** Spring Boot 4 split autoconfiguration into
+separate modules. Unlike Spring Boot 3, simply adding
+flyway-core to pom.xml is not enough — Flyway will
+silently not run. No errors, no logs, nothing.
+
+**Fix:** Use spring-boot-starter-flyway instead of
+flyway-core. Keep flyway-database-postgresql as well.
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-flyway</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.flywaydb</groupId>
+  <artifactId>flyway-database-postgresql</artifactId>
+</dependency>
+```
+
+**Files affected:** pom.xml
 
 ## Template for new gotchas:
 

@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+logs/
 
 # BlueJ files
 *.ctxt
@@ -22,3 +23,31 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Backend - Java / Maven ###
+backend/target/
+backend/*.jar
+backend/*.war
+
+### Frontend - Node / Angular ###
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+### Docker ###
+.env
+.env.local
+.env.production
+*.env
