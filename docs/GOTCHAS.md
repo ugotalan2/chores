@@ -295,6 +295,48 @@ flyway-core. Keep flyway-database-postgresql as well.
 
 **Files affected:** pom.xml
 
+## GOTCHA-013 — Spring Boot 4 Security filterChain
+**Problem:** Spring Boot 4 / Spring Security 7 does
+not allow checked exceptions declared on @Bean methods.
+filterChain(HttpSecurity http) throws Exception will
+cause a compile error.
+
+**Fix:** Wrap the method body in try/catch and rethrow
+as RuntimeException:
+```java
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) {
+  try {
+    // security config here
+    return http.build();
+  } catch (Exception e) {
+    throw new RuntimeException(
+      "Failed to configure security filter chain", e);
+  }
+}
+```
+**Files affected:** SecurityConfig.java
+
+---
+
+## GOTCHA-014 — Spring Boot 4 OAuth2 Local Dev
+**Problem:** Including spring-boot-starter-oauth2-
+resource-server without a JWKS URI set causes startup
+failure: "jwkSetUri cannot be empty". This blocks
+local development before Clerk is configured.
+
+**Fix:** Remove spring.security.oauth2 properties
+from base application.properties entirely. Put them
+only in application-prod.properties. In SecurityConfig
+open all routes when no JWKS URI is present. Local dev
+runs with no auth, production activates full JWT
+validation via the prod profile.
+
+**Files affected:**
+- application.properties (remove oauth2 line)
+- application-prod.properties (add oauth2 line)
+- SecurityConfig.java
+
 ## Template for new gotchas:
 
 ## GOTCHA-XXX — Short Title

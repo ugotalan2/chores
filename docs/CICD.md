@@ -146,11 +146,11 @@ echo "✅ All checks passed. Committing..."
 <plugin>
   <groupId>com.diffplug.spotless</groupId>
   <artifactId>spotless-maven-plugin</artifactId>
-  <version>2.43.0</version>
+  <version>2.46.0</version>
   <configuration>
     <java>
       <googleJavaFormat>
-        <version>1.19.1</version>
+        <version>1.28.0</version>
       </googleJavaFormat>
     </java>
   </configuration>

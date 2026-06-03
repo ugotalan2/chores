@@ -581,3 +581,26 @@ the outdoor storage location shot.
 
 **Date:** Project design phase
 **Status:** Final
+
+### AD-016 — Spring Boot 4 Security Open in Dev
+**Decision:** SecurityConfig allows all requests when
+no JWKS URI is configured (local development). Full
+JWT validation only activates in production via the
+prod Spring profile.
+**Reason:** Clerk isn't configured locally. Blocking
+startup with a missing JWKS URI adds friction during
+development with no security benefit since the app
+is only accessible on localhost anyway.
+**Date:** Initial backend setup
+**Status:** Final — revisit when adding Clerk
+
+---
+
+### AD-017 — SSH for GitHub Authentication
+**Decision:** Use SSH keys for GitHub authentication
+rather than Personal Access Tokens or passwords.
+**Reason:** GitHub disabled password auth in 2021.
+SSH keys are set-once-forget-forever, don't expire,
+and are standard in enterprise environments.
+**Date:** Initial backend setup
+**Status:** Final
