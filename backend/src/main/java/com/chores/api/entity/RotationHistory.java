@@ -3,6 +3,7 @@ package com.chores.api.entity;
 import com.chores.api.enums.RotationType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class RotationHistory extends BaseEntity {
 
     @Enumerated(EnumType.STRING)

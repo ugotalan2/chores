@@ -2,6 +2,7 @@ package com.chores.api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Streak {
 
     @Id
@@ -27,9 +28,11 @@ public class Streak {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Builder.Default
     @Column(name = "current_streak", nullable = false)
     private Integer currentStreak = 0;
 
+    @Builder.Default
     @Column(name = "longest_streak", nullable = false)
     private Integer longestStreak = 0;
 

@@ -1,10 +1,11 @@
 package com.chores.api.entity;
 
 import com.chores.api.enums.ScheduleType;
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class ScheduleConfig extends CreatedByAndSoftDeletableAndAuditedEntity {
 
     @Column(nullable = false, length = 100)
@@ -28,26 +29,31 @@ public class ScheduleConfig extends CreatedByAndSoftDeletableAndAuditedEntity {
         length = 30)
     private ScheduleType scheduleType;
 
+    @Builder.Default
     @Column(name = "screen_time_gate_enabled")
-    private boolean screenTimeGateEnabled = true;
+    private Boolean screenTimeGateEnabled = true;
 
+    @Builder.Default
     @Column(name = "screen_time_gate_hour")
     private Integer screenTimeGateHour = 14;
 
-    @Type(ListArrayType.class)
+    @JdbcTypeCode(SqlTypes.ARRAY)
     @Column(name = "active_blocks",
         nullable = false,
         columnDefinition = "_text")
     private List<String> activeBlocks;
 
+    @Builder.Default
     @Column(name = "saturday_block_active", nullable = false)
-    private boolean saturdayBlockActive = true;
+    private Boolean saturdayBlockActive = true;
 
+    @Builder.Default
     @Column(name = "sunday_kitchen_only", nullable = false)
-    private boolean sundayKitchenOnly = true;
+    private Boolean sundayKitchenOnly = true;
 
+    @Builder.Default
     @Column(name = "sunday_enforced", nullable = false)
-    private boolean sundayEnforced = false;
+    private Boolean sundayEnforced = false;
 
     @Column(name = "valid_from", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime validFrom;

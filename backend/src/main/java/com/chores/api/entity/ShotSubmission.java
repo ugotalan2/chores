@@ -4,6 +4,7 @@ import com.chores.api.enums.AiStatus;
 import com.chores.api.enums.AiVerdict;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
@@ -14,7 +15,7 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class ShotSubmission extends AuditedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,8 +61,9 @@ public class ShotSubmission extends AuditedEntity {
     @Column(name = "ai_processed_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime aiProcessedAt;
 
+    @Builder.Default
     @Column(name = "disputed_by_kid", nullable = false)
-    private boolean disputedByKid = false;
+    private Boolean disputedByKid = false;
 
     @Column(name = "disputed_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime disputedAt;
@@ -76,6 +78,7 @@ public class ShotSubmission extends AuditedEntity {
     @Column(name = "override_note", columnDefinition = "TEXT")
     private String overrideNote;
 
+    @Builder.Default
     @Column(name = "attempt_number", nullable = false)
     private Integer attemptNumber = 1;
 }

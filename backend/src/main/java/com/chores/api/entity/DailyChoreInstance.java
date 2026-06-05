@@ -5,6 +5,7 @@ import com.chores.api.enums.DayType;
 import com.chores.api.enums.ChoreStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.*;
 
@@ -15,7 +16,7 @@ import java.time.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class DailyChoreInstance extends AuditedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,8 +48,9 @@ public class DailyChoreInstance extends AuditedEntity {
     @Column(nullable = false, length = 20)
     private ChoreStatus status;
 
+    @Builder.Default
     @Column(name = "is_checked", nullable = false)
-    private boolean isChecked = false;
+    private Boolean isChecked = false;
 
     @Column(name = "checked_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime checkedAt;
@@ -78,12 +80,14 @@ public class DailyChoreInstance extends AuditedEntity {
     @Column(name = "parent_note", columnDefinition = "TEXT")
     private String parentNote;
 
+    @Builder.Default
     @Column(name = "is_carried_over", nullable = false)
-    private boolean isCarriedOver = false;
+    private Boolean isCarriedOver = false;
 
     @Column(name = "original_date", columnDefinition = "DATE")
     private LocalDate originalDate;
 
+    @Builder.Default
     @Column(name = "affects_next_day_device", nullable = false)
-    private boolean affectsNextDayDevice = false;
+    private Boolean affectsNextDayDevice = false;
 }

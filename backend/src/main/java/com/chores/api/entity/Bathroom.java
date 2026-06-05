@@ -2,6 +2,7 @@ package com.chores.api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "bathrooms")
@@ -10,7 +11,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Bathroom extends SoftDeletableAndAuditedEntity {
 
     @Column(nullable = false, length = 100)

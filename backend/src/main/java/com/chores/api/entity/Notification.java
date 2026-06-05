@@ -1,10 +1,11 @@
 package com.chores.api.entity;
 
 import com.chores.api.enums.NotificationType;
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.OffsetDateTime;
 import java.util.*;
@@ -16,7 +17,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Notification extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
@@ -25,7 +26,7 @@ public class Notification extends BaseEntity {
         length = 30)
     private NotificationType notificationType;
 
-    @Type(ListArrayType.class)
+    @JdbcTypeCode(SqlTypes.ARRAY)
     @Column(name = "sent_to_user_ids",
         nullable = false,
         columnDefinition = "_uuid")

@@ -6,6 +6,7 @@ import com.chores.api.enums.AssignmentType;
 import com.chores.api.enums.ChoreBlock;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "chores")
@@ -14,7 +15,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Chore extends CreatedByAndSoftDeletableAndAuditedEntity {
 
     @Column(nullable = false, length = 200)

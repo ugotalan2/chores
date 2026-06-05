@@ -3,6 +3,7 @@ package com.chores.api.entity;
 import com.chores.api.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "users")
@@ -11,7 +12,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class User extends CreatedByAndSoftDeletableAndAuditedEntity {
 
     @Column(name = "display_name",

@@ -3,6 +3,7 @@ package com.chores.api.entity;
 import com.chores.api.enums.AssignmentType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Assignment extends CreatedByAndSoftDeletableAndAuditedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,8 +46,9 @@ public class Assignment extends CreatedByAndSoftDeletableAndAuditedEntity {
     @Column(name = "last_rotated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime lastRotatedAt;
 
+    @Builder.Default
     @Column(name = "is_summer_variation", nullable = false)
-    private boolean isSummerVariation = false;
+    private Boolean isSummerVariation = false;
 
     @Column(name = "summer_role_override", length = 200)
     private String summerRoleOverride;
